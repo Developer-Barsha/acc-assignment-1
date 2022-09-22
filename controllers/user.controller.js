@@ -83,7 +83,7 @@ module.exports.updateMultipleUsers = (req, res, next) => {
 
 
 module.exports.deleteAUser = (req, res, next) => {
-    const { id } = req.params;
+    const { id } = req.body;
     if (!id) {
         return res.status(500).send("Kindly provide id property as parameter")
     };
