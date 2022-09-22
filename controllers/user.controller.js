@@ -18,7 +18,7 @@ module.exports.saveAUser = async (req, res, next) => {
     const newUser = req.body;
     const { id, name, photoUrl, contact, address, gender } = newUser;
     if (!id || !gender || !name || !contact || !address || !photoUrl)
-        return res.status(500).send("All these properties (id, gender, name, contact, address, photoUrl) are required to add a new user");
+        return res.status(500).send("6 properties (id, gender, name, contact, address, photoUrl) are required to add a new user");
     newUser.id = parseInt(newUser.id);
     userData.push(newUser);
     fs.writeFileSync("user.json", JSON.stringify(userData, null));
@@ -83,9 +83,9 @@ module.exports.updateMultipleUsers = (req, res, next) => {
 
 
 module.exports.deleteAUser = (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
     if (!id) {
-        return res.status(500).send("Kindly provide id property in the body")
+        return res.status(500).send("Kindly provide id property as parameter")
     };
 
     const userToBeDeleted = userData.find((d) => d.id == id);
