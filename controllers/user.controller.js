@@ -2,19 +2,19 @@ let userData = require('./../user.json');
 const fs = require('fs');
 
 
-module.exports.getAllUsers = (req, res, next) => {
+module.exports.getAllUsers = (req, res) => {
     const { limit } = req.query;
     res.send(userData.slice(0, limit));
 }
 
 
-module.exports.getRandomUser = (req, res, next) => {
+module.exports.getRandomUser = (req, res) => {
     const randomUser = userData[Math.floor(Math.random() * userData.length)];
     res.send(randomUser);
 }
 
 
-module.exports.saveAUser = async (req, res, next) => {
+module.exports.saveAUser = async (req, res) => {
     const newUser = req.body;
     const { id, name, photoUrl, contact, address, gender } = newUser;
     if (!id || !gender || !name || !contact || !address || !photoUrl)
@@ -26,7 +26,7 @@ module.exports.saveAUser = async (req, res, next) => {
 }
 
 
-module.exports.updateAUser = (req, res, next) => {
+module.exports.updateAUser = (req, res) => {
     const { id } = req.params;
     const updates = req.body;
     const userToBeUpdated = userData.find(d => d.id == id);
@@ -51,7 +51,7 @@ module.exports.updateAUser = (req, res, next) => {
 
 
 
-module.exports.updateMultipleUsers = (req, res, next) => {
+module.exports.updateMultipleUsers = (req, res) => {
     const updates = req.body;
     const updatedUsers = [];
     if (!Array.isArray(updates)) {
@@ -82,7 +82,7 @@ module.exports.updateMultipleUsers = (req, res, next) => {
 };
 
 
-module.exports.deleteAUser = (req, res, next) => {
+module.exports.deleteAUser = (req, res) => {
     const { id } = req.body;
     if (!id) {
         return res.status(500).send("Kindly provide id property as parameter")
